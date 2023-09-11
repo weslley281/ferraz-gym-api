@@ -17,7 +17,7 @@ model User {
     name String
     phone String
     email String @unique
-    cpf String?
+    cpf String
     password_hash String
     role Role @default(MEMBER)
     address_line1 String
@@ -39,7 +39,7 @@ model Instructor {
     name String
     phone String
     email String @unique
-    cpf String?
+    cpf String
     password_hash String
     role Role @default(MEMBER)
     address_line1 String
@@ -59,8 +59,8 @@ model Instructor {
 model Gym {
     id String @id @default(uuid())
     title String
-    description String?
-    cnpj String?
+    description String
+    cnpj String
     phone String
     email String @unique
     password_hash String
