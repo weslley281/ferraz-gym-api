@@ -6,20 +6,22 @@ export class InMemoryGymsRepository implements GymsRepository {
   public items: Gym[] = [];
 
   async create(data: Prisma.GymCreateInput): Promise<Gym> {
-    const gym = {
+    const gym: Gym = {
       id: data.id ?? randomUUID(),
       title: data.title,
-      description: data.description,
+      description: data.description || null,
+      cnpj: data.cnpj || null,
       phone: data.phone,
       email: data.email,
-      cnpj: data.cnpj,
+      password_hash: data.password_hash,
       address_line1: data.address_line1,
       address_line2: data.address_line2,
       city: data.city,
       state: data.state,
       country: data.country,
-      password_hash: data.password_hash,
-    };
+      created_at: new Date(),
+      updated_at: new Date(),
+    }
 
     this.items.push(gym);
 
