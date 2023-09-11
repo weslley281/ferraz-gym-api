@@ -9,8 +9,8 @@ export class InMemoryGymsRepository implements GymsRepository {
     const gym: Gym = {
       id: data.id ?? randomUUID(),
       title: data.title,
-      description: data.description || null,
-      cnpj: data.cnpj || null,
+      description: data.description,
+      cnpj: data.cnpj,
       phone: data.phone,
       email: data.email,
       password_hash: data.password_hash,

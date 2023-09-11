@@ -1,12 +1,12 @@
 import { InMemoryGymsRepository } from "@/repositories/in-memory/in-memory-gyms-repository";
 import { CreateGymUseCase } from "./create-gym";
-import { afterEach, before, describe, it } from "node:test";
+import {describe, beforeEach, it, expect} from "vitest";
 
 let gymsRepository: InMemoryGymsRepository;
 let sut: CreateGymUseCase;
 
 describe("Create Gym Use Case", () => {
-    before(() => {
+    beforeEach(() => {
         gymsRepository = new InMemoryGymsRepository();
         sut = new CreateGymUseCase(gymsRepository);
     });
@@ -25,5 +25,7 @@ describe("Create Gym Use Case", () => {
             country: "Brasil",
             password_hash: "123456"
         });
-    })
-})
+
+        expect(gym.id).toEqual(expect.any(String))
+    });
+});

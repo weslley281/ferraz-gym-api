@@ -7,7 +7,9 @@
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
     "up": "docker compose up -d",
-    "down": "docker compose stop"
+    "down": "docker compose stop",
+    "test": "vitest run --dir src/use-cases",
+    "test:watch": "vitest --dir src/use-cases"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +34,6 @@
     "tsup": "^7.2.0",
     "typescript": "^5.2.2",
     "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.3"
+    "vitest": "^0.34.4"
   }
 }
