@@ -48,12 +48,38 @@ export class InMemoryGymsRepository implements GymsRepository {
     return gym;
   }
 
-  async findById(id: string): Promise<any> {
-    throw new Error('Method not implemented.');
+  async findById(id: string): Promise<Gym | null> {
+    for (const gym of this.items) {
+      if (gym.id === id) {
+        return gym;
+      }
+    }
+
+    return null;
   }
 
   async searchMany(query: string, page: number): Promise<Gym[]> {
-    throw new Error('Method not implemented.');
+    const gyms = [];
+
+    for (const gym of this.items) {
+      if (
+        gym.title.toLowerCase().includes(query.toLowerCase()) ||
+        gym.description?.toLowerCase().includes(query.toLowerCase()) ||
+        gym.cnpj?.toLocaleLowerCase().includes(query.toLowerCase()) ||
+        gym.email.toLocaleLowerCase().includes(query.toLowerCase()) ||
+        gym.city.toLocaleLowerCase().includes(query.toLowerCase()) ||
+        gym.state.toLocaleLowerCase().includes(query.toLowerCase()) ||
+        gym.country.toLocaleLowerCase().includes(query.toLowerCase())
+      ) {
+        gyms.push(gym);
+      }
+    }
+
+    const gymsPerPage = 10;
+    const startIndex = page * gymsPerPage;
+    const endIndex = Math.min(startIndex + gymsPerPage, gyms.length);
+
+    return gyms.slice(startIndex, endIndex);
   }
 
   async delete(id: string): Promise<Gym> {
