@@ -1,7 +1,7 @@
 import { GymsRepository } from '@/repositories/gyms-repository';
 import { Gym } from '@prisma/client';
 
-interface UpdateGymUseCaseRequest {
+interface IRequest {
   id: string;
   title: string;
   description: string | null;
@@ -16,7 +16,7 @@ interface UpdateGymUseCaseRequest {
   cnpj: string;
 }
 
-interface UpdateGymUseCaseResponse {
+interface IResponse {
   gym: Gym;
 }
 
@@ -36,7 +36,7 @@ export class UpdateGymUseCase {
     password_hash,
     state,
     cnpj,
-  }: UpdateGymUseCaseRequest): Promise<UpdateGymUseCaseResponse> {
+  }: IRequest): Promise<IResponse> {
     const gym = await this.gymsRepository.update({
       id,
       title,
