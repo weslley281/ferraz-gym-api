@@ -13,5 +13,9 @@ interface IResponse {
 export class SearchGymsUseCase {
   constructor(private gymsRepository: GymsRepository) {}
 
-  execute;
+  async execute({ query, page }: IRequest): Promise<IResponse> {
+    const gyms = await this.gymsRepository.searchMany(query, page);
+
+    return { gyms };
+  }
 }
