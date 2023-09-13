@@ -49,13 +49,13 @@ export class InMemoryGymsRepository implements GymsRepository {
   }
 
   async findById(id: string): Promise<Gym | null> {
-    for (const gym of this.items) {
-      if (gym.id === id) {
-        return gym;
-      }
+    const gym = this.items.find((item) => item.id === id);
+
+    if (!gym) {
+      return null;
     }
 
-    return null;
+    return gym;
   }
 
   async searchMany(query: string, page: number): Promise<Gym[]> {
@@ -64,7 +64,15 @@ export class InMemoryGymsRepository implements GymsRepository {
       .slice((page - 1) * 20, page * 20);
   }
 
-  async delete(id: string): Promise<Gym> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<Gym | null> {
+    const index = this.items.findIndex((gym) => gym.id === id);
+
+    if (index === -1) {
+      return null;
+    }
+
+    const deletedGym = this.items.splice(index, 1)[0];
+
+    return deletedGym;
   }
 }
